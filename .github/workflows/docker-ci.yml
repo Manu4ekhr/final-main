@@ -13,8 +13,8 @@ jobs:
     container: golang:1.23
     steps:
       - uses: actions/checkout@v4
-      - name: Set working directory
-        run: cd ./C:/Projects(YandexPracticum)/final-main
+      - name: Change directory
+        run: cd "./C:/Projects(YandexPracticum)/final-main"
       - name: Set up Go environment
         run: |
           go mod tidy
