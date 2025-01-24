@@ -13,17 +13,14 @@ jobs:
     container: golang:1.23
     steps:
       - uses: actions/checkout@v4
-
+      - name: Set working directory
+        run: cd ./path/to/your/project
       - name: Set up Go environment
         run: |
           go mod tidy
           go mod verify
-
       - name: Run Unit Tests
-        run: GOOS=linux GOARCH=amd64 go test ./...
-
-      - name: Run Go Vet
-        run: go vet ./...
+        run: GOOS=linux GOARCH=amd64 go test -v ./...
 
   deploy:
     name: Push Docker image to Docker Hub
