@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Set working directory
-        run: cd ./path/to/your/project
+        run: cd ./C:/Projects(YandexPracticum)/final-main
       - name: Set up Go environment
         run: |
           go mod tidy
@@ -37,7 +37,7 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_MANUCHEKHR }}  # Укажите ваш username Docker Hub
+          username: ${{ secrets.DOCKER_MANUCHEHR }}  # Укажите ваш username Docker Hub
           password: ${{ secrets.DOCKER_ACCESS_TOKEN }}  # Укажите ваш токен доступа
 
       - name: Build and push Docker image
@@ -45,4 +45,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/hello-golang:${{ github.ref_name }}  # Тег будет соответствовать имени тега
+          tags: ${{ secrets.DOCKER_MANUCHEHR }}/hello-golang:${{ github.ref_name }}  # Тег будет соответствовать имени тега
