@@ -3,31 +3,28 @@ name: Golang CI/CD Pipeline
 on:
   push:
     tags:
-      - 'v*'  # Запускается, когда добавляется тег, начинающийся с 'v'
+      - 'v*'
     branches:
-      - main  # Запускается при пуше в ветку main
+      - main
 
 jobs:
   test:
     runs-on: ubuntu-latest
     container: golang:1.23
     steps:
-
-
+      - uses: actions/checkout@v4
       - name: Set up Go environment
-        working-directory: ./final-main # Установка рабочего каталога
+        working-directory: ./
         run: |
           go mod tidy
           go mod verify
-
       - name: Run Unit Tests
-        working-directory: ./final-main
         run: GOOS=linux GOARCH=amd64 go test -v ./...
 
   deploy:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
-    needs: test  # Сначала нужно пройти тесты, прежде чем публиковать
+    needs: test
     if: startsWith(github.ref, 'refs/tags')
     steps:
       - name: Checkout code
@@ -39,12 +36,12 @@ jobs:
       - name: Log in to Docker Hub
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKER_MANUCHEHR }}  # Укажите ваш username Docker Hub
-          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}  # Укажите ваш токен доступа
+          username: ${{ secrets.DOCKER_MANUCHEHR }}
+          password: ${{ secrets.DOCKER_ACCESS_TOKEN }}
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: ./final-main # Контекст для Docker
+          context: .
           push: true
-          tags: ${{ secrets.DOCKER_MANUCHEHR }}/hello-golang:${{ github.ref_name }}  # Тег будет соответствовать имени тега
+          tags: ${{ secrets.DOCKER_MANUCHEHR }}/hello-golang:${{ github.ref_name }}
