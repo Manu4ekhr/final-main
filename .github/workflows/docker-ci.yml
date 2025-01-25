@@ -12,14 +12,16 @@ jobs:
     runs-on: ubuntu-latest
     container: golang:1.23
     steps:
-      - uses: actions/checkout@v4
-      - name: Change directory
-        run: cd "./C:/Projects(YandexPracticum)/final-main"
+
+
       - name: Set up Go environment
+        working-directory: ./final-main # Установка рабочего каталога
         run: |
           go mod tidy
           go mod verify
+
       - name: Run Unit Tests
+        working-directory: ./final-main
         run: GOOS=linux GOARCH=amd64 go test -v ./...
 
   deploy:
@@ -43,6 +45,6 @@ jobs:
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
         with:
-          context: .
+          context: ./final-main # Контекст для Docker
           push: true
           tags: ${{ secrets.DOCKER_MANUCHEHR }}/hello-golang:${{ github.ref_name }}  # Тег будет соответствовать имени тега
