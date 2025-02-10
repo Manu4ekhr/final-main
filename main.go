@@ -14,6 +14,7 @@ const (
 	ParcelStatusDelivered  = "delivered"
 )
 
+// структура доставки tovarov
 type Parcel struct {
 	Number    int
 	Client    int
