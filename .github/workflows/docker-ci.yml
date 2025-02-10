@@ -44,4 +44,4 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ secrets.DOCKER_MANUCHEHR }}/hello-golang:${{ github.ref_name }}
+          tags: ${{ secrets.DOCKER_MANUCHEHR }}/final-main:${{ github.ref_name }}
