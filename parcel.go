@@ -12,6 +12,9 @@ func NewParcelStore(db *sql.DB) ParcelStore {
 	return ParcelStore{db: db}
 }
 
+// Add inserts a new parcel record into the database and returns its generated ID.
+// If an error occurs during execution, it is returned.
+
 func (s ParcelStore) Add(p Parcel) (int, error) {
 	res, err := s.db.Exec("INSERT INTO parcel (client, status, address, created_at) VALUES (:client, :status, :address, :created_at)",
 		sql.Named("client", p.Client),
