@@ -52,7 +52,6 @@ func TestAddGetDelete(t *testing.T) {
 	require.Equal(t, parcel, stored)
 
 	// delete
-
 	err = store.Delete(parcel.Number)
 
 	stored, err = store.Get(parcel.Number)
